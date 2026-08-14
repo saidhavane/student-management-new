@@ -28,6 +28,20 @@ pipeline {
                 echo "build is successful"
                 '''
             }
+            post {
+                success {
+                    archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+
+                }
+            }
         }
+         stage('Artifact to S3'){
+            steps {
+                sh '''
+                aws s3 cp target/*.war s3://mayurcbz.space2/Artifact/student.war
+                '''
+            }
+        }
+
     }
 }
