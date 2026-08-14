@@ -6,7 +6,7 @@ pipeline {
         my_aws_credentials = credentials('aws-access')
     }
     tools{
-        maven "maven"
+        maven "maven 3.9.5"
         
     }
     stages {            
