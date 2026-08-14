@@ -2,28 +2,32 @@ pipeline {
     agent {
         label "worker"
     }
+
     environment {
         my_aws_credentials = credentials('aws-access')
     }
-    tools{
+
+    tools {
         maven "maven"
-        
     }
-    stages {            
+
+    stages {
         stage('checkout'){
             steps {
-                git branch: 'main', url: 'https://github.com/saidhavane/student-management-new.git'
-            }
-        }
-        stage ('build') {
-            steps{
+                git 'https://github.com/mayurpandit25/student-management.git'
                 sh '''
-                mvn clean package
-                echo 'build has been success'
+                echo "clonning is successful"
                 '''
             }
+        }
 
+        stage('Build'){
+            steps {
+                sh '''
+                mvn clean package
+                echo "build is successful"
+                '''
+            }
         }
     }
-    
 }
