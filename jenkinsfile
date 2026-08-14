@@ -7,7 +7,7 @@ pipeline {
     }
     tools{
         maven "maven"
-        jdk "java21"
+        
     }
     stages {            
         stage('checkout'){
@@ -22,7 +22,7 @@ pipeline {
                 echo 'build has been success'
                 '''
             }
-        
+
         }
     }
     
