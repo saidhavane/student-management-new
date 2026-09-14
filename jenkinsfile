@@ -44,9 +44,9 @@ pipeline {
             }
     
         }
-        stage ('sonarqube analylis'){
+        stage ('sonarqube analylis'){         
         steps {
-            withSonarQubeEnv('sonar') {
+            withSonarQubeEnv('sonar-token') {
                 sh 'mvn sonar:sonar'
             }
         }
