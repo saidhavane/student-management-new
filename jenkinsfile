@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('checkout'){
             steps {
-                git 'https://github.com/mayurpandit25/student-management.git'
+                git git branch: 'main', url: 'https://github.com/saidhavane/student-management-new.git'
                 sh '''
                 echo "clonning is successful"
                 '''
