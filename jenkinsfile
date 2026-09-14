@@ -44,5 +44,19 @@ pipeline {
             }
     
         }
+        stage ('sonarqube analylis'){
+        steps {
+            withSonarQubeEnv('sonar') {
+                sh 'mvn sonar:sonar'
+            }
+        }
+        }
+        // stage ('sonar Quality gate'){
+        //     steps {
+        //         timeout(time: 5, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
     }
 }
