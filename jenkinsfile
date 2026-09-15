@@ -1,62 +1,32 @@
 pipeline {
     agent {
         label "worker"
-    }
-
+    } 
     environment {
-        my_aws_credentials = credentials('aws-cred')
+        my_aws_credentials = credentials('aws-access')
     }
-
     tools {
         maven "maven"
     }
-
     stages {
-        stage('checkout'){
-            steps {
-                git branch: 'main', url: 'https://github.com/saidhavane/student-management-new.git'
-                sh '''
-                echo "clonning is successful"
-                '''
-            }
+        stage ('checkout'){
+            git branch: 'main', url: 'https://github.com/saidhavane/student-management-new.git'
+            sh '''
+           echo "cloning is successfull"
+           '''
         }
-
-        stage('Build'){
-            steps {
-                sh '''
-                mvn clean package
-                echo "build is successful"
-                '''
-            }
-            post {
-                success {
-                    archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
-
-                }
-            }
-        } 
-        stage ('artifact to s3') {
-            steps {
-                sh '''
-                aws s3 cp target/*.war s3://saeee.cbz/Artifacts/student.war
-
-                '''
-            }
-    
-        }
-        stage ('sonarqube analylis'){         
+    }
+    stage ("build"){
         steps {
-            withSonarQubeEnv('sonar') {
-                sh 'mvn sonar:sonar'
+            sh'''
+            mvn clean package
+            echo "build is successfull"
+            '''
+        }
+        post {
+            success{
+                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
-        }
-        // stage ('sonar Quality gate'){
-        //     steps {
-        //         timeout(time: 5, unit: 'MINUTES') {
-        //             waitForQualityGate abortPipeline: true
-        //         }
-        //     }
-        // }
     }
 }
