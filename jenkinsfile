@@ -69,13 +69,18 @@ pipeline {
             '''
         }
     }
-    // stage ('deploy to eks'){
-    //     steps{
-    //         sh'''
-    //         aws eks update-kubeconfig --region ap-south-1 --name 
-    //         '''
-    //     }
-    // }
+    stage ('deploy to eks'){
+        steps{
+            sh'''
+            aws eks update-kubeconfig --region ap-south-1 --name my-cluster-eks 
+            sudo snap install kubectl --classic
+            kubectl get pods
+            sleep 10
+            kubectl get pods 
+            kubectl get svc -o wide
+            '''
+        }
+    }
 
     }
     }
