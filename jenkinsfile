@@ -10,12 +10,14 @@ pipeline {
     }
     stages {
         stage ('checkout'){
+            steps{
             git branch: 'main', url: 'https://github.com/saidhavane/student-management-new.git'
             sh '''
            echo "cloning is successfull"
            '''
         }
     }
+    
     stage ("build"){
         steps {
             sh'''
@@ -28,5 +30,6 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
+     }
     }
 }
