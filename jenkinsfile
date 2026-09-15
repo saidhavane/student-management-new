@@ -69,6 +69,13 @@ pipeline {
             '''
         }
     }
+    // stage ('deploy to eks'){
+    //     steps{
+    //         sh'''
+    //         aws eks update-kubeconfig --region ap-south-1 --name 
+    //         '''
+    //     }
+    // }
 
     }
     }
